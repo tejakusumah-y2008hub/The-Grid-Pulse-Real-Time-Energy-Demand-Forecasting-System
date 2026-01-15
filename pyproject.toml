@@ -1,7 +1,3 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
 name = "src"
 version = "0.0.1"
@@ -15,18 +11,44 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License"
 ]
+requires-python = ">=3.10"
 dependencies = [
-    "loguru",
-    "mkdocs",
-    "pip",
-    "pytest",
-    "python-dotenv",
-    "ruff",
-    "tqdm",
-    "typer",
+    "loguru",           # Better logging
+    "typer",            # CLI app builder
+    "python-dotenv",    # Environment variable management
+    "tqdm",             # Progress bars
+    "pandas",		    # Data manipulation
+    "numpy",
+    "scikit-learn",     # Basic ML
+    "torch",            # Deep Learning (Production runtime)
+    "fastapi",          # Model Serving API
+    "uvicorn",          # ASGI Server for FastAPI
+    "pydantic",         # Data validation for API
+    "prometheus-client" # Monitoring metrics
 ]
-requires-python = "~=3.10.0"
 
+[project.optional-dependencies]
+dev = [
+    "pytest",               # Testing
+    "ruff",                 # Linting/Formatting
+    "jupyterlab",           # Notebooks
+    "matplotlib",           # Plotting
+    "seaborn",
+    "great-expectations",   # Data Quality/Validation
+    "mlflow",               # Experiment Tracking
+    "dvc",                  # Data Version Control
+    "dvc-s3",               # DVC plugin for S3/MinIO/DagsHub support
+    "optuna",               # Hyperparameter Tuning
+    "dagshub",              # Connectivity for remote storage
+    "apache-airflow",       # Workflow Orchestration
+    "mkdocs",               # Documentation
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# --- Tool Configurations ---
 
 [tool.ruff]
 line-length = 99
@@ -40,3 +62,5 @@ extend-select = ["I"]  # Add import sorting
 known-first-party = ["src"]
 force-sort-within-sections = true
 
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
