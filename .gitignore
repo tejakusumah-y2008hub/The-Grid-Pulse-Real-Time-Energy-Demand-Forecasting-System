@@ -193,3 +193,6 @@ cython_debug/
 # VS Code
 .vscode/
 .code-workspace
+
+!data/**/*.dvc
+!data/**/.gitignore

@@ -1,2 +1,4 @@
+[core]
+    remote = origin
 ['remote "origin"']
     url = https://dagshub.com/tejakusumah-y2008hub/The-Grid-Pulse-Real-Time-Energy-Demand-Forecasting-System.dvc
