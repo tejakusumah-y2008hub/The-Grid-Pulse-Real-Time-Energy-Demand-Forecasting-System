@@ -191,8 +191,8 @@ cython_debug/
 .pypirc
 
 # VS Code
-.vscode/
+.vscode
 .code-workspace
 
-!data/**/*.dvc
-!data/**/.gitignore
+!data/raw/*.dvc
+!data/raw/.gitignore
