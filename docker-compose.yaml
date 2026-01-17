@@ -17,12 +17,15 @@ services:
 
   # 2. Airflow Webserver (The UI you click on)
   airflow-webserver:
-    image: apache/airflow:2.10.4-python3.10
+    build: .
+    image: grid_pulse_airflow:custom
     container_name: grid_pulse_webserver
     command: webserver
     depends_on:
       postgres:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -35,7 +38,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./data:/opt/airflow/data
-      - ./grid_pulse:/opt/airflow/grid_pulse
+      - ./src:/opt/airflow/src
     ports:
       - "8080:8080"
     healthcheck:
@@ -47,12 +50,15 @@ services:
 
   # 3. Airflow Scheduler (The heart that triggers jobs)
   airflow-scheduler:
-    image: apache/airflow:2.10.4-python3.10
+    build: .
+    image: grid_pulse_airflow:custom
     container_name: grid_pulse_scheduler
     command: scheduler
     depends_on:
       postgres:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -63,7 +69,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./data:/opt/airflow/data
-      - ./grid_pulse:/opt/airflow/grid_pulse
+      - ./src:/opt/airflow/src
     restart: always
 
 volumes:
